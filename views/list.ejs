@@ -15,7 +15,7 @@
         </h1>
     </div>
     <div class="box">
-        <% for(let i = 0; i< newListItems.length; i++) { %>
+        <% for(var i = 0; i<newListItems.length; i++) { %>
 
             <div class="item">
                 <input type="checkbox">
@@ -30,9 +30,12 @@
                 <form class="box" action="/" method="POST">
                     <input type="text" name="newItem" placeholder="New Item" autocomplete="off">
 
-                    <button type="submit" name="button" value=<%=listTitle%>>+</button>
+                    <button type="submit" name="list" value=<%=listTitle%>>+</button>
 
                 </form>
 </body>
+<footer>
+    copyright 2020-2022.
+</footer>
 
 </html>
