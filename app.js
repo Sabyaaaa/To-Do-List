@@ -51,8 +51,8 @@ app.post("/work", function(req, res) {
     res.redirect("/work");
 });
 
-app.get("/about", function(req, res) {
-    res.render("about", { listTitle: "Work List", newListItems: workItems })
+app.get("/about", function(req, res){
+    res.render("about", {listTitle: "Work List", newListItems: workItems})
 })
 
 app.listen(3000, function() {
