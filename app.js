@@ -16,6 +16,8 @@ app.set('view engine', 'ejs');
 app.use(bodyParser({ extended: true }));
 app.use(express.static("public"));
 
+mongoose.connect("mongodb://localhost:27017/todolistDB", { useNewUrlParser: true });
+
 app.get("/", function (req, res) {
 
     const day = date.getDate();
