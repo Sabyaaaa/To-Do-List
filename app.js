@@ -20,7 +20,10 @@ mongoose.connect("mongodb://localhost:27017/todolistDB", { useNewUrlParser: true
 
 const itemSchema = {
     name: String
-  };
+};
+
+const Item = mongoose.model("Item", itemSchema);
+
 
 app.get("/", function (req, res) {
 
