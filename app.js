@@ -2,7 +2,6 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
-const date = require(__dirname + "/date.js");
 
 // console.log(date());
 
@@ -24,13 +23,20 @@ const itemSchema = {
 
 const Item = mongoose.model("Item", itemSchema);
 
+const item1 = new Item({
+    name: "Welcome to your to do list."
+  });
+  const item2 = new Item({
+    name: "Hit the + button to add a new item."
+  });
+  const item3 = new Item({
+    name: "<-- Hit this to delete an item."
+  });
+  
 
 app.get("/", function (req, res) {
 
-    const day = date.getDate();
-
-    res.render("list", { listTitle: day, newListItems: items });
-
+    res.render("list", { listTitle: "Today", newListItems: items });
 });
 
 app.post("/", function (req, res) {
