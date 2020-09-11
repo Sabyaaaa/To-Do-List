@@ -15,7 +15,7 @@ app.set('view engine', 'ejs');
 app.use(bodyParser({ extended: true }));
 app.use(express.static("public"));
 
-mongoose.connect("mongodb://localhost:27017/todolistDB", { useNewUrlParser: true });
+mongoose.connect("mongodb://localhost:27017/listDB", { useNewUrlParser: true });
 
 const itemSchema = {
     name: String
@@ -25,14 +25,23 @@ const Item = mongoose.model("Item", itemSchema);
 
 const item1 = new Item({
     name: "Welcome to your to do list."
-  });
-  const item2 = new Item({
+});
+const item2 = new Item({
     name: "Hit the + button to add a new item."
-  });
-  const item3 = new Item({
+});
+const item3 = new Item({
     name: "<-- Hit this to delete an item."
-  });
-  
+});
+
+const defaultItems = [item1, item2, item3];
+
+Item.insertMany(defaultItems, function (req, res) {
+    if (err) {
+        console.log(err);
+    } else {
+        console.log("Successfully saved to database!");
+    }
+});
 
 app.get("/", function (req, res) {
 
