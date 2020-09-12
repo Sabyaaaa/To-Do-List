@@ -35,7 +35,7 @@ const item3 = new Item({
 
 const defaultItems = [item1, item2, item3];
 
-Item.insertMany(defaultItems, function (req, res) {
+Item.insertMany(defaultItems, function (err) {
     if (err) {
         console.log(err);
     } else {
@@ -45,7 +45,26 @@ Item.insertMany(defaultItems, function (req, res) {
 
 app.get("/", function (req, res) {
 
-    res.render("list", { listTitle: "Today", newListItems: items });
+    Item.find({}, function (err, foundItems) {
+
+        // console.log(foundItems);
+
+        if (foundItems.length === 0) {
+            Item.insertMany(defaultItems, function (err) {
+                if (err) {
+                    console.log(err);
+                } else {
+                    console.log("Sucessfully inserted the items!");
+                }
+            });
+            res.redirect("/");  //It helps to make the insert items visible onto our browser.
+
+        } else {
+
+            res.render("list", { listTitle: "Today", newListItems: foundItems });
+        }
+    });
+
 });
 
 app.post("/", function (req, res) {
