@@ -7,12 +7,9 @@ const mongoose = require("mongoose");
 
 const app = express();
 
-const items = ["Buy Food", "Cook Food", "Eat Food"];
-const workItems = [];
-
 app.set('view engine', 'ejs');
 
-app.use(bodyParser({ extended: true }));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
 mongoose.connect("mongodb://localhost:27017/listDB", { useNewUrlParser: true });
@@ -34,14 +31,6 @@ const item3 = new Item({
 });
 
 const defaultItems = [item1, item2, item3];
-
-Item.insertMany(defaultItems, function (err) {
-    if (err) {
-        console.log(err);
-    } else {
-        console.log("Successfully saved to database!");
-    }
-});
 
 app.get("/", function (req, res) {
 
@@ -65,20 +54,18 @@ app.get("/", function (req, res) {
         }
     });
 
+
 });
 
 app.post("/", function (req, res) {
-    const item = req.body.newItem;
-    console.log(item);
+    const itemName = req.body.newItem;
 
-    if (req.body.list === "Work") {
-        workItems.push(item);
-        res.redirect("/work");
-    } else {
-        res.redirect("/");
-    }
+    //mongoose doc.
+    const item = new Item({
+        name: itemName
+    });
 
-    items.push(item);
+    item.save();
 
     res.redirect("/");
 
